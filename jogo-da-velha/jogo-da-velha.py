@@ -79,6 +79,8 @@ def start():
 
     a = base_do_jogo()
 
+
+    s
     
     return p,a
 
