@@ -26,7 +26,7 @@ def base_do_jogo():
     return a
 
 
-def jogada(player):
+def jogada(player,a):
     while True:
         print('Faça sua jogada escolhendo as posições disponíveis')
         cont = 1
@@ -52,41 +52,50 @@ def jogada(player):
         return a
         
 
-def conferir(player):
+def conferir(player,a):
     #linha
+    w=0
     if a[1] == player and a[2] == player and a[3] == player:
         w = player
-        break
+        
     if a[4] == player and a[5] == player and a[6] == player:
         w = player
-        break
+        
     if a[7] == player and a[8] == player and a[9] == player:
         w = player
-        break
+        
     #coluna
     if a[1] == player and a[4] == player and a[7] == player:
         w = player
-        break
+        
     if a[2] == player and a[5] == player and a[8] == player:
         w = player
-        break
+        
     if a[3] == player and a[6] == player and a[9] == player:
         w = player
-        break
+        
     #diagonais
     if a[1] == player and a[5] == player and a[9] == player:
         w = player
-        break
+        
     if a[3] == player and a[5] == player and a[7] == player:
         w = player
-        break
+    
+    
+    if w != 0:
+        return player
+    if w == 0:
+        return 0
+    
 
-# cpu em implementação
-def jogada_cpu(cpu):
+# cpu em implementação, será retirada a jogada aleatória
+def jogada_cpu(cpu,a):
+    print()
+    print('Jogada do CPU')
     while True:
         joga = randint(1,9)
         if a[joga] == 'x' or a[joga] == 'o':
-            print('O campo já foi escolhido')
+            #print('O campo já foi escolhido')
             continue
         a[joga] = cpu
         cont = 1
@@ -106,27 +115,62 @@ def start():
 
     a = base_do_jogo()
 
-    print("Sorteando o primeiro jogador")
+    print("Sorteando o primeiro jogador:")
     primeiro = randint(0,1)
 
     if primeiro == 1:
         print('Você é o primeiro!')
-        while True:
-            jogada(p)
-            conferir
+        w = 0
+        fim = 0
+        while w == 0:
+            jogada(p,a)
+            fim += 1
+            w = conferir(p,a)
+            if w != 0 or fim == 9:
+                break
+            jogada_cpu(c,a)
+            fim += 1
+            w = conferir(c,a)
+            if w != 0 or fim == 9:
+                break
+        if p == w:
+            print('Você ganhou !!!')
+        if c == w:
+            print('Você perdeu !!!')
+        if fim == 9:
+            print('DEU VELHA!!!!')
 
 
 
 
     else:
         print('O CPU é o primeiro!')
-    
+        w = 0
+        fim = 0
+        while w == 0:
+            
+            jogada_cpu(c,a)
+            fim += 1
+            w = conferir(c,a)
+            if w != 0 or fim == 9:
+                break
+            jogada(p,a)
+            fim += 1
+            w = conferir(p,a)
+            if w != 0 or fim == 9:
+                break
+        if p == w:
+            print('Você ganhou !!!')
+        if c == w:
+            print('Você perdeu !!!')
+        if fim == 9:
+            print('DEU VELHA!!!!')
     
     
     return p,a,c
 
 
-p,a,c = start()
+p,a,c=start()
 
 
 
