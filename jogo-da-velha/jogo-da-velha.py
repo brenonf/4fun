@@ -88,7 +88,7 @@ def conferir(player,a):
         return 0
     
 
-# cpu em implementação, será retirada a jogada aleatória
+# cpu em implementação, será retirada a jogada aleatória para uma mais inteligente.
 def jogada_cpu(cpu,a):
     print()
     print('Jogada do CPU')
