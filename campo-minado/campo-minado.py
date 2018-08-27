@@ -31,7 +31,7 @@ def tabuleiro(n):
     return m
 
 
-def impressao(m,cont):
+def impressao(m):
     n = len(m)
     cont = n ** 2 + 1
     for i in range(n):
@@ -70,7 +70,11 @@ def bomba(m,quant):
             else:
                 m[x][y] = '[*]'
                 break
-        
+    return m
         
 from random import randint as ri
-m = tabuleiro(7)
+m = tabuleiro(6)
+print()
+m = bomba(m,30)
+print()
+impressao(m)
