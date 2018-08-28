@@ -4,7 +4,7 @@ def tabuleiro(n):
     for i in range(n):
         m.append([])
         for j in range(n):
-            m[i].append('[ ]')
+            m[i].append(' # ')
     cont = 1
     for i in range(n):
         print('|',end='')
@@ -56,25 +56,82 @@ def impressao(m):
         elif i > 9 and i < 100:
             print(' ',end=' ')
             print(i,end='')
-    return m
+    print('\n')
 
 
-def bomba(m,quant):
-    n = len(m)
+def espelho(m):
+    mb = list()
+    mb = deepcopy(m)
+    return mb
+
+    
+def bomba(mb,quant):
+    n = len(mb)
+    for i in range(n):
+        for j in range(n):
+            mb[j][i] = '   '
     for i in range(quant):
         while True:
             x = ri(0, n-1)
             y = ri(0, n-1)
-            if m[x][y] != '[ ]':
+            if mb[x][y] != '   ':
                 continue
             else:
-                m[x][y] = '[*]'
+                mb[x][y] = '[B]'
                 break
-    return m
-        
+    return mb
+
+
+def jogada(m,mb):
+    while True:
+        print('Faça sua jogada')
+        l = int(input('Digite a linha: ')) - 1
+        c = int(input('Digite a coluna: ')) - 1
+        if m[l][c] == ' # ':
+            if mb[l][c] != '[B]':
+                m[l][c] = mb[l][c]
+                impressao(m)
+            elif mb[l][c] == '[B]':
+                print('Você explodiu !!!!')
+                break
+        else:
+            print('Essa célula já foi escolhida !')
+            continue
+            
+def numeros_bomba(mb):
+    n = len(mb)
+    for i in range(n):
+        for j in range(n):
+            if mb[i][j] != '[B]'
+                cont = 0
+            
+    
+    
+from copy import deepcopy
 from random import randint as ri
 m = tabuleiro(6)
+mb = espelho(m)
 print()
-m = bomba(m,30)
+mb = bomba(mb,12)
 print()
-impressao(m)
+impressao(mb)
+
+
+
+
+
+
+'''
+imprimir assim no futuro:
+     0     1     2     3
+   +-----+-----+-----+-----+
+0  | 11  | -3  |  4  |  8  |
+   +-----+-----+-----+-----+
+1  | -3  | 12  |  6  | 11  |
+   +-----+-----+-----+-----+
+2  |  4  |  6  |  5  | 13  |
+   +-----+-----+-----+-----+
+3  |  8  | 11  | 13  |  5  |
+   +-----+-----+-----+-----+
+
+'''
